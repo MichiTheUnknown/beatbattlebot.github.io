@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Discord Bot Dashboard</title>
+        <style>
+            body {
+                margin:0;
+                height:100vh;
+                background:#2c2f33;
+                color:white;
+                font-family:Arial, sans-serif;
+            }
+            .container {
+                display:flex;
+                flex-direction:column;
+                align-items:center;
+                justify-content:center;
+                height:100%;
+                position:relative;
+            }
+            .login-button {
+                position:absolute;
+                top:20px;
+                right:20px;
+            }
+            button {
+                background-color:#7289da;
+                color:white;
+                padding: 12px 24px;
+                border:none;
+                border-radius:8px;
+                font-size:1.2em;
+                cursor:pointer;
+            }
+            h1 {
+                margin:0;
+                font-weight:bold;
+            }
+
+            @keyframes fadeIn {
+                0% {opacity:0; transform:translateY(-10px);}
+                100% {opacity:1; transform:translateY(0);}
+            }
+            .logo-image {
+                animation:fadeIn 1s ease-out;
+                animation-delay: 0.3s;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="login-button">
+                <a href="/start-auth"><button>Login</button></a>
+            </div>
+            <div class = "logo-image" style="display:flex; align-items:center; gap:10px;">
+                <img src="/static/botpfp.png" style="width:100px; height:100px; border-radius:15px;">
+                <h1>BBBF Dashboard</h1>
+            </div>
+            <p>A multi-purpose Discord Bot designed for Beat Battle Servers!</p>
+        </div>
+    </body>
+</html>
