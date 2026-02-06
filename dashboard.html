@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Dashboard</title>
+  <style>
+    body {
+      background-color: #2c2f33;
+      color: white;
+      font-family: Arial;
+      padding: 30px;
+    }
+    .guild {
+      margin: 10px 0;
+      padding: 10px;
+      background: #23272a;
+      border-radius: 6px;
+    }
+    .user-dropdown {
+      position:absolute;
+      top:20px;
+      right: 20px;
+    }
+    .avatar {
+      width: 45px;
+      height: 45px;
+      border-radius:50%;
+      cursor:pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position:absolute;
+      right:0;
+      background-color: #23272a;
+      min-width:160px;
+      border-radius:6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      padding:10px;
+      z-index:1000;
+    }
+    .dropdown-content p {
+      margin:0;
+      padding:5px 10px;
+      font-weight:bold;
+    }
+    .dropdown-content a {
+      color: white;
+      padding: 8px 10px;
+      display: block;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .dropdown-content a:hover {
+      background-color: #40444b;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="user-dropdown">
+    <img src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.png" class="avatar" onclick="toggleDropdown()">
+    <div id="dropdownMenu" class="dropdown-content">
+      <p>{{user.username}}</p>
+      <a href="/settings">Settings</a>
+      {% if user.id == admin_id %}
+      <a href="/admin">ADMIN</a>
+      {% endif %}
+      <a href="/logout">Log Out</a>
+    </div>
+  </div>
+  <h1>Welcome, {{ user.username }}</h1>
+  <h2>Your Servers:</h2>
+  {% for guild in guilds %}
+    <div class="guild">
+      {% if guild.icon %}
+        <img src="https://cdn.discordapp.com/icons/{{ guild.id }}/{{guild.icon}}.png"
+        alt="[Image not loaded]"
+        width="40px" height = "40px" style="vertical-align:middle; border-radius:5px;">
+      {% else %}
+        <img src="/static/disclogo.jpeg" width="40px" height="40px" style="vertical-align:middle; border-radius:5px;">
+      {% endif %}
+      <strong>{{ guild.name }}</strong>
+      {% if guild.has_bot %}
+        <img src="/static/botpfp.png"
+             alt="[Bot is in the server]"
+             title="Bot is in this server"
+             width="24" height="24"
+             style="vertical-align:middle; border-radius:50%; margin-left: 8px">
+      {% endif %}
+
+      {% if guild.has_bot and guild.is_admin %}
+        <a href="/config/{{ guild.id }}"
+           style="margin-left:10px; background-color: #7289da; color:white; padding:4px 8px; text-decoration: none; border-radius: 4px;">
+          ⚙ Configure
+        </a>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  <script>
+  function toggleDropdown() {
+    const menu = document.getElementById("dropdownMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  }
+  </script>
+</body>
+</html>
